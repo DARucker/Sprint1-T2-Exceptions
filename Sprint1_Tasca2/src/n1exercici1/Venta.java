@@ -14,18 +14,18 @@ public class Venta {
 
 	public void cargarDatosFactura() {
 
-		teclado = new Scanner(System.in);
 		
 		int continua = 1;
 		
 		while (continua  == 1) {
 
+			teclado = new Scanner(System.in);
 			p.setNombre(capturarString());
 			p.setPrecio(capturarNumero("Ingrese precio: "));
+			System.out.println("");
 			productos.add(p);
 			
-			System.out.println("Presione 1 para ingresar otro producto: ");
-			int contimua = capturarNumero("presione 1 si desea cargar otro item");
+			continua = capturarNumero("presione 1 si desea cargar otro item");
 		}
 		
 		calcularTotal();
@@ -44,8 +44,10 @@ public class Venta {
 	
 	
 	public static String capturarString () {
+		teclado = new Scanner(System.in);
 		String productoFactura;
 		System.out.println("Ingrese producto");
+		System.out.println("");
 		productoFactura = teclado.nextLine();
 
 		return productoFactura;
@@ -56,6 +58,7 @@ public class Venta {
 				
 		int datoNumerico = 0;
 		System.out.println(mensaje);
+		System.out.println(" ");
 		//return Integer.parseInt(teclado.nextLine());
 		datoNumerico = teclado.nextInt();
 		return datoNumerico;
