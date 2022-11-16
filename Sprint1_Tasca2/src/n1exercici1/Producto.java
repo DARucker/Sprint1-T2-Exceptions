@@ -8,7 +8,6 @@ public class Producto {
 	public Producto() {
 	}
 	public Producto(String nombre, double precio) {
-		super();
 		Nombre = nombre;
 		this.precio = precio;
 	}
@@ -28,7 +27,6 @@ public class Producto {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-	
 	
 	
 }
