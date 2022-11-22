@@ -49,7 +49,7 @@ public class Venta {
 		double total = 0;
 
 		try {
-		for (int i=0; i<= productos.size(); i++) {
+		for (int i=0; i< productos.size(); i++) {
 			total = total + productos.get(i).getPrecio();
 			System.out.println(productos.get(i).getNombre() + " " + productos.get(i).getPrecio());
 		}
