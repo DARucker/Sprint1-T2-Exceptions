@@ -6,15 +6,17 @@ import java.util.Scanner;
 
 public class Venta {
 
-	List<Producto> productos = new ArrayList<>();
-	public static Scanner teclado;
-	Producto p;
+	private List<Producto> productos = new ArrayList<>();
+	private Scanner teclado;
+	private Producto p;
 
+	// Metodo que tiene por objeto no permitir que se cargue una factura vacia
+	
 	public int comienzaCargarFactura() throws VentaVaciaException {
 		p = new Producto();
 		p.setNombre(capturarString("Ingrese el primer producto de la factura: "));
 		if (p.getNombre().isEmpty()) {
-			throw new VentaVaciaException();
+			throw new VentaVaciaException("Para realizar una venta debes agregar productos.");
 		}
 		p.setPrecio(capturarNumero("Ingrese precio: "));
 		productos.add(0, p);
@@ -26,13 +28,14 @@ public class Venta {
 		return continua;
 	}
 
+	// Metodo que llama a los metodos que piden datos y acumula en el array
+	
 	public void cargarDatosFactura() {
 
 		int continua = 1;
 
 		while (continua == 1) {
 			p = new Producto();
-			teclado = new Scanner(System.in);
 			p.setNombre(capturarString("Ingrese el producto: "));
 			p.setPrecio(capturarNumero("Ingrese precio: "));
 			productos.add(p);
@@ -44,12 +47,14 @@ public class Venta {
 
 	}
 
+	// Calcula, imprime y finaliza la ejecucion
+	
 	public void calcularTotal() throws ArrayIndexOutOfBoundsException {
 
 		double total = 0;
 
 		try {
-		for (int i=0; i< productos.size(); i++) {
+		for (int i=0; i< productos.size(); i++) { // si el for llegara hasta "<=" arrojaria la excepcion que solicita el enunciado.
 			total = total + productos.get(i).getPrecio();
 			System.out.println(productos.get(i).getNombre() + " " + productos.get(i).getPrecio());
 		}
@@ -60,17 +65,19 @@ public class Venta {
 		}
 	}
 
-	public static String capturarString(String mensaje) {
+	// Metodos auxiliares para el ingreso de datos numericos y alfanumericos por teclado
+	
+	public  String capturarString(String mensaje) {
 		teclado = new Scanner(System.in);
-		System.out.println(mensaje+ " \n");
+		System.out.println(mensaje);
 		return teclado.nextLine();
 	}
 
-	public static int capturarNumero(String mensaje) {
+	public int capturarNumero(String mensaje) {
 		Integer datoNumerico;
 
 		do {
-			System.out.println(mensaje+ " \n");
+			System.out.println(mensaje);
 			try {
 				datoNumerico = Integer.parseInt(teclado.nextLine());
 			} catch (Exception e) {
