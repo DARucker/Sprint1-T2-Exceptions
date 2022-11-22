@@ -7,28 +7,20 @@ import java.util.Scanner;
 public class Venta {
 
 	List<Producto> productos = new ArrayList<>();
-	private double precioTotal;
 	public static Scanner teclado;
 	Producto p;
 
 	public int comienzaCargarFactura() throws VentaVaciaException {
 		p = new Producto();
-		teclado = new Scanner(System.in);
-		p.setNombre(capturarString());
-
+		p.setNombre(capturarString("Ingrese el primer producto de la factura: "));
 		if (p.getNombre().isEmpty()) {
-			throw new VentaVaciaException("Para realizar una venta debes agregar productos.");
+			throw new VentaVaciaException();
 		}
-
 		p.setPrecio(capturarNumero("Ingrese precio: "));
-		System.out.println("");
-
 		productos.add(0, p);
 
 		int continua = capturarNumero("presione 1 si desea cargar otro item u otro numero para finalizar");
-
 		if (continua > 1) {
-
 			calcularTotal();
 		}
 		return continua;
@@ -41,7 +33,7 @@ public class Venta {
 		while (continua == 1) {
 			p = new Producto();
 			teclado = new Scanner(System.in);
-			p.setNombre(capturarString());
+			p.setNombre(capturarString("Ingrese el producto: "));
 			p.setPrecio(capturarNumero("Ingrese precio: "));
 			productos.add(p);
 
@@ -52,49 +44,33 @@ public class Venta {
 
 	}
 
-	public void calcularTotal() {
+	public void calcularTotal() throws ArrayIndexOutOfBoundsException {
 
 		double total = 0;
 
-		/*
-		 * Codigo Generado para cumplir con el ultimo parrafo de la tarea
-		 */
 		try {
-			productos.add(-9, p);
-		} catch (ArrayIndexOutOfBoundsException e1) {
-			System.out.println(e1.getMessage() + " E1 Array: la posición elegida está fuera del arreglo");
-		}catch (IndexOutOfBoundsException e2) {
-			System.out.println("----------");
-			System.err.println(e2.getMessage() + " Codigo Generado para cumplir con el último parrafo de la tarea");
-			System.out.println("----------");
+		for (int i=0; i<= productos.size(); i++) {
+			total = total + productos.get(i).getPrecio();
+			System.out.println(productos.get(i).getNombre() + " " + productos.get(i).getPrecio());
 		}
-
-		for (Producto prod : productos) {
-			total = total + prod.getPrecio();
-			System.out.println(prod.getNombre() + " " + prod.getPrecio());
-		}
-
 		System.out.println("Total: " + total);
+		}
+		catch (IndexOutOfBoundsException e){
+			System.err.println("La cantidad de productos sumados no coincide");
+		}
 	}
 
-	public static String capturarString() {
+	public static String capturarString(String mensaje) {
 		teclado = new Scanner(System.in);
-		String productoFactura;
-		System.out.println("Ingrese producto");
-		productoFactura = teclado.nextLine();
-
-		return productoFactura;
-
+		System.out.println(mensaje+ " \n");
+		return teclado.nextLine();
 	}
 
 	public static int capturarNumero(String mensaje) {
 		Integer datoNumerico;
 
 		do {
-
-			System.out.println(mensaje);
-			System.out.println(" ");
-
+			System.out.println(mensaje+ " \n");
 			try {
 				datoNumerico = Integer.parseInt(teclado.nextLine());
 			} catch (Exception e) {
@@ -103,7 +79,6 @@ public class Venta {
 			}
 
 		} while (datoNumerico == -1);
-
 		return datoNumerico;
 	}
 

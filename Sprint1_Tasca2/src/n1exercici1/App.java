@@ -10,7 +10,6 @@ public class App {
 		
 		try {
 		continua = v.comienzaCargarFactura();
-		
 		} catch (VentaVaciaException e) {
 
 			System.out.println(e.getMessage());
@@ -20,7 +19,6 @@ public class App {
 		if(continua == 1) {
 			v.cargarDatosFactura();
 		}
-	
 	}
 
 }

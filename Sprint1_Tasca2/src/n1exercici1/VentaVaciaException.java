@@ -9,5 +9,10 @@ public class VentaVaciaException extends Exception {
 		super(msj);
 		
 	}
+	
+	public String getMessage() {
+		
+		return "Para realizar una venta debes agregar productos.";
+	}
 
 }
